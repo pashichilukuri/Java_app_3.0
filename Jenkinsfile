@@ -82,11 +82,7 @@ pipeline{
                }
             }
         }
-         environment {
-         CI=true
-         ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
-         JFROG_PASSWORD = credentials('jfrog-password')
-         }
+         
          stage('Docker Image Scan: trivy '){
          when { expression {  params.action == 'create' } }
             steps{
