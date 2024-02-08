@@ -82,7 +82,26 @@ pipeline{
                }
             }
         }
-         
+         stage("Push to Jfrog'){
+         when { expression {  params.action == 'create' } }
+         steps{
+             script{
+                 echo "Attempting to push artifacts to push Jfrog Artifactory"
+                 withCredentials([usernamePassword(
+                 CredentialsId: "Artifactory"
+                 UsernameVariable: "user"
+                 PasswordVariable: "pass"
+                )]) {
+                //User Artifactory_user and Arifactory_Pasword variable
+                echo "Username: $USER"
+                echo "Passowrd: $PASS"
+                def CurlCommand = "curl -u '${USER}:{PASS}' -T target/*.jar ${param.ArtifactoryURL}/artifactory/example-repo-local/"
+                echo "Exicuting Curl Command: $curlCommand"
+                sh curlCommand
+                 } 
+               }
+             } 
+           }   
          stage('Docker Image Scan: trivy '){
          when { expression {  params.action == 'create' } }
             steps{
