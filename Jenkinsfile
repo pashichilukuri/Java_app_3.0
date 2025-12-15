@@ -82,7 +82,7 @@ pipeline{
                }
             }
         }
-        stage("Push to Jfrog'){
+        stage('Push to Jfrog'){
          when { expression {  params.action == 'create' } }
          steps{
              script{
