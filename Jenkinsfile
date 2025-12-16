@@ -84,18 +84,18 @@ pipeline{
         }
         stage('Push to Jfrog'){
          when { expression {  params.action == 'create' } }
-         steps{
+          steps{
              script{
                  echo "Attempting to push artifacts to push Jfrog Artifactory"
                  withCredentials([usernamePassword(
                  CredentialsId: "Artifactory"
-                 UsernameVariable: "USER"
-                 PasswordVariable: "PASS"
+                 usernameVariable: "USER"
+                 passwordVariable: "PASS"
                 )]) {
                 //User Artifactory_user and Arifactory_Pasword variable
                 echo "Username: $USER"
-                echo "Passowrd: $PASS"
-                def CurlCommand = "curl -u '${USER}:{PASS}' -T target/*.jar ${param.ArtifactoryURL}/artifactory/example-repo-local/"
+                echo "Password: $PASS"
+                def CurlCommand = "curl -u '${USER}:{PASS}' -T target/*.jar ${params.ArtifactoryURL}/artifactory/example-repo-local/"
                 echo "Exicuting Curl Command: $curlCommand"
                 sh curlCommand
                  } 
