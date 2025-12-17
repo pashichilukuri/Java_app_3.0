@@ -89,8 +89,8 @@ pipeline{
                  echo "Attempting to push artifacts to push Jfrog Artifactory"
                  withCredentials([usernamePassword(
                  CredentialsId: "Artifactory"
-                 usernameVariable: "USER"
-                 passwordVariable: "PASS"
+                 usernameVariable: "user"
+                 passwordVariable: "pass"
                 )]) {
                 //User Artifactory_user and Arifactory_Pasword variable
                 echo "Username: $USER"
